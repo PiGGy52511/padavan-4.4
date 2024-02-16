@@ -2584,7 +2584,7 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 #if defined(APP_VPNSVR)
 	int found_app_vpnsvr = 1;
 #else
-	int found_app_vpnsvr = 0;
+	int found_app_vpnsvr = 1;
 #endif
 #if defined(APP_VPNCLI)
 	int found_app_vpncli = 1;
