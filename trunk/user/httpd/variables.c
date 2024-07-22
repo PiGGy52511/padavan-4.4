@@ -60,7 +60,7 @@
 			{"url_keyword_x", "36", NULL, EVM_RESTART_FIREWALL},
 			{0,0,0,0}
 		};
-		
+
 	struct variable variables_PPPConnection_pppoemwanIPList[] = {
 			{"pppoemwan_mac_x", "14", NULL, EVM_RESTART_FIREWALL},
 			{"pppoemwan_ip_x", "17", NULL, EVM_RESTART_FIREWALL},
@@ -68,7 +68,7 @@
 			{"pppoemwan_interface_x", "24", NULL, EVM_RESTART_FIREWALL},
 			{0,0,0,0}
 		};
-		
+
 	struct variable variables_AdbybyConf_AdIPList[] = {
 			{"adbybyip_mac_x", "14", NULL, FALSE},
 			{"adbybyip_ip_x", "17", NULL, FALSE},
@@ -130,7 +130,7 @@
 			{"adbybyrules_road_x", "24", NULL, FALSE},
 			{0,0,0,0}
 		};
-		
+
 	struct variable variables_SmartdnsConf_SdnsList[] = {
 			{"sdnss_enable_x", "24", NULL, FALSE},
 			{"sdnss_name_x", "24", NULL, FALSE},
@@ -467,7 +467,7 @@
 			{0,0,0,0}
 		};
 
-	
+
 	struct variable variables_PPPConnection[] = {
 			{"pppoemwan_enable", "", NULL, EVM_RESTART_WAN},
 			{"pppoesync_enable", "", NULL, EVM_RESTART_WAN},
@@ -1014,7 +1014,7 @@
 #if defined(APP_WIREGUARD)
 	struct variable variables_WIREGUARD[] = {
 			{"wireguard_enable", "", NULL, EVM_RESTART_WIREGUARD},
-			{"wireguard_wgconf", "", NULL, EVM_RESTART_WIREGUARD},
+			{"scripts.wg0.conf", "File", NULL, EVM_RESTART_WIREGUARD},
 			{0,0,0,0}
 		};
 #endif
@@ -1178,7 +1178,7 @@
 			{"sdns_ttl", "", NULL, EVM_RESTART_SMARTDNS},
 			{"sdns_ttl_min", "", NULL, EVM_RESTART_SMARTDNS},
 			{"sdns_ttl_max", "", NULL, EVM_RESTART_SMARTDNS},
-			{"sdns_coredump", "", NULL, EVM_RESTART_SMARTDNS},	
+			{"sdns_coredump", "", NULL, EVM_RESTART_SMARTDNS},
 			{"sdnss_staticnum_x", "", NULL, EVM_RESTART_SMARTDNS},
 			{"sdns_speed", "", NULL, EVM_RESTART_SMARTDNS},
 			{"sdns_address", "", NULL, EVM_RESTART_SMARTDNS},
