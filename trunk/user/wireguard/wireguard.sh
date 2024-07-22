@@ -1,29 +1,17 @@
 #!/bin/sh
-
+tmpconf=/tmp/wg0.conf
 start_wg() {
-	localip="$(nvram get wireguard_localip)"
-	privatekey="$(nvram get wireguard_localkey)"
-	peerkey="$(nvram get wireguard_peerkey)"
-	peerip="$(nvram get wireguard_peerip)"
+	wgconf="$(nvram get wireguard_wgconf)
+        echo ${wgconf} > ${tmpconf}
 	logger -t "WIREGUARD" "正在启动wireguard"
-	ifconfig wg0 down
-	ip link del dev wg0
-	ip link add dev wg0 type wireguard
-	ip link set dev wg0 mtu 1420
-	ip addr add $localip dev wg0
-	echo "$privatekey" > /tmp/privatekey
-	wg set wg0 private-key /tmp/privatekey
-	wg set wg0 peer $peerkey persistent-keepalive 25 allowed-ips 0.0.0.0/0 endpoint $peerip
-	iptables -t nat -A POSTROUTING -o wg0 -j MASQUERADE
-	ifconfig wg0 up
+        /usr/bin/wg-quick up ${tmpconf}
 }
 
 
 stop_wg() {
-	ifconfig wg0 down
-	ip link del dev wg0
+	/usr/bin/wg-quick down ${tmpconf}
 	logger -t "WIREGUARD" "正在关闭wireguard"
-	}
+}
 
 
 
