@@ -1,15 +1,13 @@
 #!/bin/sh
-tmpconf=/tmp/wg0.conf
+wgconf=/etc/storage/wg0.conf
 start_wg() {
-	wgconf="$(nvram get wireguard_wgconf)
-        echo ${wgconf} > ${tmpconf}
 	logger -t "WIREGUARD" "正在启动wireguard"
-        /usr/bin/wg-quick up ${tmpconf}
+    /usr/bin/wg-quick up ${wgconf}
 }
 
 
 stop_wg() {
-	/usr/bin/wg-quick down ${tmpconf}
+	/usr/bin/wg-quick down ${wgconf}
 	logger -t "WIREGUARD" "正在关闭wireguard"
 }
 
