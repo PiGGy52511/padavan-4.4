@@ -2,6 +2,7 @@
 WG_INTERFACE='wg0'
 wgconf=/etc/storage/${WG_INTERFACE}.conf
 http_username=`nvram get http_username`
+wireguard_enable=`nvram get wireguard_enable`
 
 start_wg() {
     logger -t "WIREGUARD" "正在启动wireguard"
@@ -20,10 +21,14 @@ stop_wg() {
 }
 
 check_wg() {
-    # echo "WireGuard 已启动，检查 iptables 规则..."
-    iptables -C INPUT -i $WG_INTERFACE -j ACCEPT || iptables -A INPUT -i $WG_INTERFACE -j ACCEPT
-    iptables -C FORWARD -i $WG_INTERFACE -o $WG_INTERFACE -j ACCEPT || iptables -A FORWARD -i $WG_INTERFACE -o $WG_INTERFACE -j ACCEPT
-    iptables -t nat -C POSTROUTING -o $WG_INTERFACE -j MASQUERADE || iptables -t nat -A POSTROUTING -o $WG_INTERFACE -j MASQUERADE
+    if [ "$wireguard_enable" = "1" ]; then
+        echo "WireGuard 已启动，检查 iptables 规则..."
+        iptables -C INPUT -i $WG_INTERFACE -j ACCEPT || iptables -A INPUT -i $WG_INTERFACE -j ACCEPT
+        iptables -C FORWARD -i $WG_INTERFACE -o $WG_INTERFACE -j ACCEPT || iptables -A FORWARD -i $WG_INTERFACE -o $WG_INTERFACE -j ACCEPT
+        iptables -t nat -C POSTROUTING -o $WG_INTERFACE -j MASQUERADE || iptables -t nat -A POSTROUTING -o $WG_INTERFACE -j MASQUERADE
+    else
+        echo "WireGuard 未启动，跳过设置 iptables 规则。"
+    fi
 }
 
 case $1 in
