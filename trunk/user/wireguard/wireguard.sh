@@ -24,8 +24,11 @@ check_wg() {
     if [ "$wireguard_enable" = "1" ]; then
         echo "WireGuard 已启动，检查 iptables 规则..."
         iptables -C INPUT -i $WG_INTERFACE -j ACCEPT || iptables -A INPUT -i $WG_INTERFACE -j ACCEPT
-        iptables -C FORWARD -i $WG_INTERFACE -o $WG_INTERFACE -j ACCEPT || iptables -A FORWARD -i $WG_INTERFACE -o $WG_INTERFACE -j ACCEPT
+        iptables -C FORWARD -i $WG_INTERFACE -j ACCEPT || iptables -A FORWARD -i $WG_INTERFACE -j ACCEPT
         iptables -t nat -C POSTROUTING -o $WG_INTERFACE -j MASQUERADE || iptables -t nat -A POSTROUTING -o $WG_INTERFACE -j MASQUERADE
+
+        echo "检查对端通信时效，针对ddns变化"
+        /bin/sh /usr/bin/reresolve-dns.sh ${wgconf}
     else
         echo "WireGuard 未启动，跳过设置 iptables 规则。"
     fi
