@@ -24,7 +24,7 @@ jobs:
           - build_variant: "mt7621"
             targets: "WR1200JS K2P DIR-878 CR660x JCG-Q20 MI-4"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Prepare environment
         run: |
           sudo apt update
